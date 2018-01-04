@@ -1,10 +1,8 @@
-<h1>Instagram</h1>
-<%= link_to 'New post', new_pic_path %>
+
 <% @pics.each do |pic| %>
     <h2 class="title">
       <%= link_to pic.title, pic %>
     </h2>
-    <a><%= link_to "delete^", pic, method: :delete %></a>
-    |
-    <%= link_to "edit", edit_pic_path(pic) %>
+    <a><%= link_to "delete", pic, method: :delete, class: "btn btn-danger" %></a>
+    <%= link_to "edit", edit_pic_path(pic), class: "btn btn-info" %>
 <% end %>
