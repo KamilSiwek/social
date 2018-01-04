@@ -3,6 +3,9 @@
     <h2 class="title">
       <%= link_to pic.title, pic %>
     </h2>
+    <div class="image">
+      <%= link_to (image_tag pic.image.url(:medium)), pic %>
+    </div>
     <a><%= link_to "delete", pic, method: :delete, class: "btn btn-danger" %></a>
     <%= link_to "edit", edit_pic_path(pic), class: "btn btn-info" %>
 <% end %>

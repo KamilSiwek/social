@@ -17,7 +17,7 @@ class PicsController < ApplicationController
     @pic = current_user.pics.build(pic_params)
 
     if @pic.save
-      redirect_to @pic
+      redirect_to @pic, notice: "It was posted!"
     else
       render 'new'
     end
@@ -29,7 +29,7 @@ class PicsController < ApplicationController
 
   def update
 
-    if @pic.update(params[:pic].permit(:title,:description))
+    if @pic.update(pic_params)
       redirect_to @pic
     else
       render 'edit'
@@ -45,7 +45,7 @@ class PicsController < ApplicationController
 
   private
   def pic_params
-    params.require(:pic).permit(:title, :description)
+    params.require(:pic).permit(:title, :description, :image)
   end
 
   def pic_find

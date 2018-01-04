@@ -5,10 +5,15 @@
         <h1>Fix It!</h1>
       </div>
       <div class="panel-body">
-
-      </div>
+        <div class="current_image">
+          <strong class="center">
+            Right now
+            <%= image_tag @pic.image.url(:medium) %>
+          </strong>
+        </div>
       <%= render 'form' %>
       <%= link_to "cancel", pic_path %>
+    </div>
     </div>
   </div>
 </div>
