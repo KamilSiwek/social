@@ -1,11 +1,42 @@
-<h1>
-  <%= @pic.title %>
-</h1>
-<%= image_tag @pic.image.url %>
-<p>
-  <%= @pic.description %>
-</p>
-<p>
-  <%= @pic.user.email %>
-</p>
-<%= link_to 'back', root_path %>
+<div id="pic_show" class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel heading pic_image">
+        <%= image_tag @pic.image.url %>
+      </div>
+      <div class="panel-body">
+        <h1>
+          <%= @pic.title %>
+        </h1>
+        <p>
+          <%= @pic.description %>
+        </p>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="user">by <%= @pic.user.email %></p>
+          </div>
+          <div class="col-md-6">
+            <div class="btn-group pull-right">
+              <%= link_to like_pic_path(@pic), method: :put, class: "btn btn-default" do %>
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <%= @pic.get_upvotes.size %>
+              <% end %>
+              <%= link_to dislike_pic_path(@pic), method: :put, class: "btn btn-default" do %>
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+                <%= @pic.get_downvotes.size %>
+              <% end %>
+
+
+              <% if user_signed_in? %>
+                <%= link_to "delete", @pic, method: :delete, class: "btn btn-danger" %>
+                <%= link_to "edit", edit_pic_path(@pic), class: "btn btn-info" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

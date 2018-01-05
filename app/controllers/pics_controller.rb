@@ -1,5 +1,6 @@
 class PicsController < ApplicationController
-  before_action :pic_find, only: [:show, :edit, :update, :destroy]
+  before_action :pic_find, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :authenticate_user!, except: [:index, :show]
   def index
     @pics = Pic.all
   end
@@ -28,7 +29,6 @@ class PicsController < ApplicationController
   end
 
   def update
-
     if @pic.update(pic_params)
       redirect_to @pic
     else
@@ -37,10 +37,19 @@ class PicsController < ApplicationController
   end
 
   def destroy
-
     @pic.destroy
 
     redirect_to root_path
+  end
+
+  def upvote
+    @pic.upvote_by current_user
+    redirect_back fallback_location: @pic
+  end
+
+  def downvote
+    @pic.downvote_by current_user
+    redirect_back fallback_location: @pic
   end
 
   private
