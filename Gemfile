@@ -19,7 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'haml'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'simple_form'
 gem 'devise'
 gem 'paperclip', '~> 5.0.0'

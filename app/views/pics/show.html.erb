@@ -11,13 +11,18 @@
         <p>
           <%= @pic.description %>
         </p>
+
       </div>
       <div class="panel-footer">
         <div class="row">
           <div class="col-md-6">
+            <div class="btn-group pull-left">
+              <%= link_to "Back", root_path, class:"btn btn-primary" %>
+            </div>
             <p class="user">by <%= @pic.user.email %></p>
           </div>
           <div class="col-md-6">
+
             <div class="btn-group pull-right">
               <%= link_to like_pic_path(@pic), method: :put, class: "btn btn-default" do %>
                 <span class="glyphicon glyphicon-thumbs-up"></span>
@@ -28,11 +33,20 @@
                 <%= @pic.get_downvotes.size %>
               <% end %>
 
-
               <% if user_signed_in? %>
                 <%= link_to "delete", @pic, method: :delete, class: "btn btn-danger" %>
                 <%= link_to "edit", edit_pic_path(@pic), class: "btn btn-info" %>
               <% end %>
+            </div>
+          </div>
+          <div id="comments" >
+            <h2><%= @pic.comments.count %> Comments</h2>
+            <div class="form-group">
+              <%= render  @pic.comments %>
+            </div>
+            <h3>Join discussion:</h3>
+            <div class="form-group">
+              <%= render "comments/form" %>
             </div>
           </div>
         </div>

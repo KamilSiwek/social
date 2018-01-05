@@ -1,0 +1,11 @@
+<%= simple_form_for([@pic, @pic.comments.build]) do |f| %>
+  <div class="form-group">
+    <%=f.input :commenter, input_html: { class: 'form-control' }%>
+  </div>
+  <div class="form-group">
+    <%=f.input :body, input_html: { class: 'form-control' }%>
+  </div>
+  <p>
+    <%= f.button :submit, class: "btn btn-info" %>
+  </p>
+<% end %>

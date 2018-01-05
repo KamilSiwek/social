@@ -1,15 +1,44 @@
 <div class="col-md-6 col-md-offset-3">
   <div id="pics" class="transitions-enabled">
     <div class="box panel panel-default">
-    <% @pics.each do |pic| %>
-      <h2 class="title">
-        <%= link_to pic.title, pic %>
-      </h2>
-      <div class="image">
-        <%= link_to (image_tag pic.image.url(:medium)), pic %>
-      </div>
-      <a><%= link_to "delete", pic, method: :delete, class: "btn btn-danger" %></a>
-      <%= link_to "edit", edit_pic_path(pic), class: "btn btn-info" %>
+      <% @pics.each do |pic| %>
+        <h3>
+          <%= link_to pic.title, pic %>
+        </h3>
+        <p class="body"><%= truncate(pic.description, length:100) %></p>
+        <div class="image">
+          <%= link_to (image_tag pic.image.url(:medium)), pic %>
+        </div>
+        <!-- <div class="btn-group pull-left"> -->
+          <%= link_to like_pic_path(pic), method: :put, class: "btn btn-default" do %>
+            <span class="glyphicon glyphicon-thumbs-up"></span>
+            <%= pic.get_upvotes.size %>
+          <% end %>
+          <%= link_to dislike_pic_path(pic), method: :put, class: "btn btn-default" do %>
+            <span class="glyphicon glyphicon-thumbs-down"></span>
+            <%= pic.get_downvotes.size %>
+          <% end %>
+
+          <div id="comments">
+            <h2><%= pic.comments.count %> Comments</h2>
+            <%= render  pic.comments %>
+            <h3>Join discussion:</h3>
+            <%= simple_form_for([pic, pic.comments.build]) do |f| %>
+              <div class="form-group">
+                <%=f.input :commenter, input_html: { class: 'form-control' }%>
+              </div>
+              <div class="form-group">
+                <%=f.input :body, input_html: { class: 'form-control' }%>
+              </div>
+              <p>
+                <%= f.button :submit, class: "btn btn-info" %>
+              </p>
+              <hr>
+            <% end %>
+          </div>
+        <!-- </div> -->
+        <!-- <%= link_to "delete", pic, method: :delete, class: "btn btn-danger" %>
+        <%= link_to "edit", edit_pic_path(pic), class: "btn btn-info" %> -->
       <% end %>
     </div>
   </div>
